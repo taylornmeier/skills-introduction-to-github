@@ -1,10 +1,10 @@
 # Statistics Calculator
 
-This Python script calculates statistical measures for mock data from a user study.
+This Python script calculates statistical measures for mock data from a user study and provides comprehensive visualizations.
 
 ## Features
 
-The script calculates the following statistics for each metric:
+The scripts calculate the following statistics for each metric:
 
 - **Central Tendency**: Mean and Median
 - **Range**: Minimum, Maximum, and Range (Max - Min)
@@ -12,7 +12,7 @@ The script calculates the following statistics for each metric:
 
 ## Metrics Analyzed
 
-The script analyzes 5 metrics from 20 observations:
+The scripts analyze 5 metrics from 20 observations:
 
 1. **Clicks on Generated Matches**: Number of clicks on generated matches
 2. **Number of Clicks per Generated Match**: Average clicks per match
@@ -25,6 +25,7 @@ The script analyzes 5 metrics from 20 observations:
 - Python 3.7 or higher
 - NumPy >= 1.24.0
 - SciPy >= 1.10.0
+- Matplotlib >= 3.7.0 (for visualizations)
 
 ## Installation
 
@@ -36,7 +37,9 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the script from the command line:
+### Text-Based Statistics
+
+Run the statistics calculator to get detailed text output:
 
 ```bash
 python3 statistics_calculator.py
@@ -49,7 +52,25 @@ chmod +x statistics_calculator.py
 ./statistics_calculator.py
 ```
 
+### Visualizations
+
+Generate comprehensive graphs and charts:
+
+```bash
+python3 visualize_statistics.py
+```
+
+This will create the following visualization files:
+
+1. **statistics_dashboard.png** - Comprehensive 4-panel dashboard
+2. **mean_median_comparison.png** - Bar chart comparing mean vs median
+3. **confidence_intervals.png** - Error bar plot with 95% confidence intervals
+4. **box_plots.png** - Box plots showing data distribution
+5. **range_visualization.png** - Min/max range with mean markers
+
 ## Output
+
+### Text Output (statistics_calculator.py)
 
 The script produces:
 
@@ -61,6 +82,16 @@ The script produces:
 
 2. **Summary Table** showing mean and median for all metrics in a compact format
 
+### Visual Output (visualize_statistics.py)
+
+The visualization script generates:
+
+1. **Dashboard**: 4-panel comprehensive view with mean/median comparison, confidence intervals, range visualization, and summary table
+2. **Bar Charts**: Side-by-side comparison of mean and median values
+3. **Error Plots**: Mean values with 95% confidence interval error bars
+4. **Box Plots**: Distribution visualization for each metric
+5. **Range Charts**: Visual representation of min, max, and mean
+
 ## Statistical Methods
 
 - **Mean**: Arithmetic average of all values
@@ -70,6 +101,8 @@ The script produces:
   - Where SE is the standard error of the mean
 
 ## Example Output
+
+### Text Output
 
 ```
 ======================================================================
@@ -92,6 +125,14 @@ Range:
   CI Width:               3.2350
 ```
 
+### Visual Output
+
+The visualization script creates publication-quality graphs showing:
+- Bar charts for easy comparison
+- Error bars for statistical significance
+- Box plots for distribution analysis
+- Comprehensive dashboards for overview
+
 ## Mock Data Source
 
-The data analyzed by this script comes from Figure 3 in the problem statement, containing 20 observations across 5 different metrics related to user interactions and time measurements.
+The data analyzed by these scripts comes from Figure 3 in the problem statement, containing 20 observations across 5 different metrics related to user interactions and time measurements.
