@@ -9,10 +9,17 @@ This script creates comprehensive visualizations of the mock data statistics:
 - Combined comparison charts
 """
 
-import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend for headless environments
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import stats
 
+
+# Constants
+LABEL_FONT_SIZE = 8
+MAX_LABEL_LENGTH = 20
+TABLE_COLUMNS = 6
 
 # Metric labels for display
 METRIC_LABELS = {
@@ -237,7 +244,7 @@ def create_comprehensive_dashboard(all_stats, output_file='statistics_dashboard.
     ax1.bar(x + width/2, medians, width, label='Median', color='coral', alpha=0.8)
     ax1.set_title('Mean vs Median', fontsize=12, fontweight='bold')
     ax1.set_xticks(x)
-    ax1.set_xticklabels(labels, fontsize=8, ha='right')
+    ax1.set_xticklabels(labels, fontsize=LABEL_FONT_SIZE, ha='right')
     ax1.legend()
     ax1.grid(axis='y', alpha=0.3)
     
@@ -253,7 +260,7 @@ def create_comprehensive_dashboard(all_stats, output_file='statistics_dashboard.
                  ecolor='steelblue', elinewidth=2)
     ax2.set_title('95% Confidence Intervals', fontsize=12, fontweight='bold')
     ax2.set_xticks(x)
-    ax2.set_xticklabels(labels, fontsize=8, ha='right')
+    ax2.set_xticklabels(labels, fontsize=LABEL_FONT_SIZE, ha='right')
     ax2.grid(axis='y', alpha=0.3)
     
     # 3. Range visualization
@@ -268,7 +275,7 @@ def create_comprehensive_dashboard(all_stats, output_file='statistics_dashboard.
                 edgecolors='darkred', linewidth=1.5)
     ax3.set_title('Range (Min-Max) with Mean', fontsize=12, fontweight='bold')
     ax3.set_xticks(x)
-    ax3.set_xticklabels(labels, fontsize=8, ha='right')
+    ax3.set_xticklabels(labels, fontsize=LABEL_FONT_SIZE, ha='right')
     ax3.grid(axis='y', alpha=0.3)
     
     # 4. Summary statistics table
@@ -280,7 +287,7 @@ def create_comprehensive_dashboard(all_stats, output_file='statistics_dashboard.
     table_data.append(['Metric', 'Mean', 'Median', 'Min', 'Max', 'Range'])
     
     for metric in metrics:
-        metric_label = METRIC_LABELS[metric][:20] + '...' if len(METRIC_LABELS[metric]) > 20 else METRIC_LABELS[metric]
+        metric_label = METRIC_LABELS[metric][:MAX_LABEL_LENGTH] + '...' if len(METRIC_LABELS[metric]) > MAX_LABEL_LENGTH else METRIC_LABELS[metric]
         row = [
             metric_label,
             f"{all_stats[metric]['mean']:.2f}",
@@ -294,17 +301,17 @@ def create_comprehensive_dashboard(all_stats, output_file='statistics_dashboard.
     table = ax4.table(cellText=table_data, cellLoc='center', loc='center',
                       colWidths=[0.3, 0.14, 0.14, 0.14, 0.14, 0.14])
     table.auto_set_font_size(False)
-    table.set_fontsize(8)
+    table.set_fontsize(LABEL_FONT_SIZE)
     table.scale(1, 2)
     
     # Style header row
-    for i in range(6):
+    for i in range(TABLE_COLUMNS):
         table[(0, i)].set_facecolor('#4472C4')
         table[(0, i)].set_text_props(weight='bold', color='white')
     
     # Alternate row colors
     for i in range(1, len(table_data)):
-        for j in range(6):
+        for j in range(TABLE_COLUMNS):
             if i % 2 == 0:
                 table[(i, j)].set_facecolor('#E7E6E6')
     
