@@ -12,6 +12,18 @@ import numpy as np
 from scipy import stats
 
 
+# Constants for formatting
+METRIC_COLUMN_WIDTH = 40
+
+# Metric labels for display
+METRIC_LABELS = {
+    'clicks_on_generated_matches': 'Clicks on Generated Matches',
+    'clicks_per_generated_match': 'Number of Clicks per Generated Match',
+    'select_button_clicks': 'Clicks on "Select" Button (1=yes, 0=no)',
+    'time_profile_minutes': 'Time in Minutes - Profile',
+    'time_questionnaire_minutes': 'Time in Minutes - Questionnaire'
+}
+
 # Mock data from Figure 3
 data = {
     'clicks_on_generated_matches': [
@@ -129,17 +141,9 @@ def main():
     print("  5. Time in minutes - Questionnaire (rounded to nearest 0.5)")
     
     # Calculate and display statistics for each metric
-    metric_labels = {
-        'clicks_on_generated_matches': 'Clicks on Generated Matches',
-        'clicks_per_generated_match': 'Number of Clicks per Generated Match',
-        'select_button_clicks': 'Clicks on "Select" Button (1=yes, 0=no)',
-        'time_profile_minutes': 'Time in Minutes - Profile',
-        'time_questionnaire_minutes': 'Time in Minutes - Questionnaire'
-    }
-    
     all_stats = {}
     
-    for metric_key, metric_label in metric_labels.items():
+    for metric_key, metric_label in METRIC_LABELS.items():
         stats_dict = calculate_statistics(data[metric_key], metric_label)
         all_stats[metric_key] = stats_dict
         print_statistics(metric_label, stats_dict)
@@ -148,13 +152,13 @@ def main():
     print(f"\n{'='*70}")
     print("SUMMARY TABLE")
     print(f"{'='*70}")
-    print(f"{'Metric':<40} {'Mean':<10} {'Median':<10}")
+    print(f"{'Metric':<{METRIC_COLUMN_WIDTH}} {'Mean':<10} {'Median':<10}")
     print(f"{'-'*70}")
     
-    for metric_key, metric_label in metric_labels.items():
+    for metric_key, metric_label in METRIC_LABELS.items():
         mean = all_stats[metric_key]['mean']
         median = all_stats[metric_key]['median']
-        print(f"{metric_label:<40} {mean:<10.2f} {median:<10.2f}")
+        print(f"{metric_label:<{METRIC_COLUMN_WIDTH}} {mean:<10.2f} {median:<10.2f}")
     
     print(f"\n{'='*70}\n")
 
